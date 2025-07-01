@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   imports = [ ./hardware-configuration.nix ];
@@ -6,6 +6,8 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+
+  nix.settings = { experimental-features = [ "nix-command" "flakes" ]; };
 
   networking.hostName = "nixos";
   networking.networkmanager.enable = true;
@@ -36,10 +38,8 @@
   programs.dconf.enable = true;
 
   # No display manager
-  services.xserver.enable = false;
   services.displayManager.enable = false;
   services.displayManager.gdm.enable = false;
-  services.desktopManager.gnome.enable = false;
 
   # Touchpad and input
   services.libinput.enable = true;
@@ -52,11 +52,7 @@
     isNormalUser = true;
     description = "timm";
     extraGroups = [ "networkmanager" "wheel" "video" "audio" "docker" ];
-    packages = with pkgs;
-      [
-        fish
-
-      ];
+    packages = with pkgs; [ fish ];
     shell = pkgs.fish; # optional
   };
 
@@ -65,7 +61,12 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  environment.systemPackages = with pkgs; [ nix-output-monitor ];
+  environment.systemPackages = with pkgs; [ nix-output-monitor bluez ];
+
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+  };
 
   system.stateVersion = "25.05";
 

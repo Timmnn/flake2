@@ -1,4 +1,4 @@
-{ config, pkgs, lib, walker, quickshell, ... }:
+{ config, pkgs, lib, walker, quickshell, stylix, ... }:
 
 let
   neovimPkgs = import ./modules/neovim/packages.nix { inherit pkgs; };
@@ -22,9 +22,11 @@ in {
     ./modules/dunst/config.nix
     ./modules/quickshell/config.nix
     walker.homeManagerModules.default
+    stylix.nixosModules.stylix
+
   ];
 
-  home.stateVersion = "24.05";
+  home.stateVersion = "25.05";
   home.username = "timm";
   home.homeDirectory = "/home/timm";
 
@@ -38,6 +40,7 @@ in {
       teamviewer
       btop
       libnotify
+      bluetui
       moonlight-qt
       pavucontrol
       bun
@@ -63,6 +66,12 @@ in {
       tree
     ] ++ neovimPkgs ++ gitPkgs ++ fishPkgs ++ cursorPkgs ++ quickshellPkgs
     ++ hyprPkgs ++ idesPkgs ++ pythonPkgs;
+
+  stylix = {
+    enable = true; # You commented this out, enable it for Stylix to work
+    base16Scheme = { };
+    polarity = "dark";
+  };
 
   programs.walker = {
     enable = true;
