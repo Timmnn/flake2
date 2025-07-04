@@ -22,7 +22,6 @@ in {
     ./modules/dunst/config.nix
     ./modules/quickshell/config.nix
     walker.homeManagerModules.default
-    stylix.nixosModules.stylix
 
   ];
 
@@ -69,7 +68,7 @@ in {
 
   stylix = {
     enable = true; # You commented this out, enable it for Stylix to work
-    base16Scheme = { };
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
     polarity = "dark";
   };
 
@@ -94,7 +93,6 @@ in {
     settings = {
       font_family = "Fira Code Retina";
       font_size = 9.0;
-      background_opacity = "0.9";
       confirm_os_window_close = 0;
     };
   };
