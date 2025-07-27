@@ -34,6 +34,9 @@
   };
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
+  programs.steam.enable = true;
+  services.xserver.videoDrivers = [ "amdgpu" ];
+
   # Optional but helpful
   programs.dconf.enable = true;
 
@@ -67,6 +70,13 @@
     enable = true;
     powerOnBoot = true;
   };
+
+  networking.firewall.allowedTCPPortRanges = [{
+    from = 8000;
+    to = 10000;
+  }];
+
+  hardware.opengl.enable = true;
 
   system.stateVersion = "25.05";
 

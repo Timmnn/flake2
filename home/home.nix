@@ -17,11 +17,13 @@ in {
     ./modules/neovim/config.nix
     ./modules/hypr/config.nix
     ./modules/git/config.nix
+    ./modules/waybar/config.nix
     ./modules/fish/config.nix
     ./modules/cursor/config.nix
     ./modules/dunst/config.nix
     ./modules/quickshell/config.nix
-    walker.homeManagerModules.default
+    #./modules/walker/config.nix
+    #walker.homeManagerModules.default
 
   ];
 
@@ -31,11 +33,22 @@ in {
 
   home.packages = with pkgs;
     [
+      nerd-fonts.fira-code
+      nerd-fonts.droid-sans-mono
+      nerd-fonts.noto
+      nerd-fonts.hack
+      nerd-fonts.ubuntu
       bat
       nixfmt-classic
       vesktop
+      spotify
       _1password-gui
       sunshine
+      typescript-language-server
+      typescript
+      prettier
+      nodejs_22
+      emmet-ls
       teamviewer
       btop
       libnotify
@@ -43,22 +56,33 @@ in {
       moonlight-qt
       pavucontrol
       bun
+      spicetify-cli
       firefox
       kitty
+      nautilus
+      alacritty
       nwg-look
       gnome-calculator
       psmisc
+      steam
       yazi
       lnav
+      pywal
+
       tldr
       docker_25
       vlc
       insomnia
       rustup
       gcc
+      rofi
       ripgrep
       eza
       unzip
+      waybar
+      blueman
+      bluez
+      networkmanager
       uv
       pyright
       gnumake42
@@ -68,24 +92,9 @@ in {
 
   stylix = {
     enable = true; # You commented this out, enable it for Stylix to work
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/deep-oceanic-next.yaml";
     polarity = "dark";
-  };
-
-  programs.walker = {
-    enable = true;
-    runAsService = true;
-
-    # All options from the config.json can be used here.
-    config = {
-      search.placeholder = "Example";
-      ui.fullscreen = true;
-      list = { height = 200; };
-      websearch.prefix = "?";
-      switcher.prefix = "/";
-    };
-
-    # If this is not set the default styling is used.
+    #pywal.enable = true;
   };
 
   programs.kitty = {
