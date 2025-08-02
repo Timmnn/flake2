@@ -38,6 +38,7 @@ in {
       nerd-fonts.noto
       nerd-fonts.hack
       nerd-fonts.ubuntu
+      (callPackage ./prisma-bin.nix { })
       bat
       nixfmt-classic
       vesktop
@@ -50,6 +51,12 @@ in {
       nodejs_22
       emmet-ls
       teamviewer
+      #prisma-engines
+      openssl
+      direnv
+      wasistlos
+      pkg-config
+      nix-ld
       btop
       libnotify
       bluetui

@@ -27,6 +27,8 @@
     LC_TIME = "de_DE.UTF-8";
   };
 
+  nixpkgs.config.permittedInsecurePackages = [ "openssl-1.1.1w" ];
+
   # Enable Wayland and required services
   programs.hyprland.enable = true;
   environment.sessionVariables = {
