@@ -1,6 +1,6 @@
 { pkgs, lib, ... }: {
   home.pointerCursor = {
-    name = "Bibata-Modern-Ice"; # Exact name, see below
+    name = "Bibata-Modern-Ice";
     package = pkgs.bibata-cursors;
     size = 24;
   };

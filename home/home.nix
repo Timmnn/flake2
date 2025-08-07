@@ -1,31 +1,39 @@
 { config, pkgs, lib, walker, quickshell, stylix, ... }:
 
 let
-  neovimPkgs = import ./modules/neovim/packages.nix { inherit pkgs; };
-  gitPkgs = import ./modules/git/packages.nix { inherit pkgs; };
-  fishPkgs = import ./modules/git/packages.nix { inherit pkgs; };
-  cursorPkgs = import ./modules/cursor/packages.nix { inherit pkgs; };
-  quickshellPkgs =
-    import ./modules/quickshell/packages.nix { inherit pkgs quickshell; };
-  pythonPkgs =
-    import ./modules/python/packages.nix { inherit pkgs quickshell; };
-  idesPkgs = import ./modules/ides/packages.nix { inherit pkgs quickshell; };
-  hyprPkgs = import ./modules/hypr/packages.nix { inherit pkgs quickshell; };
+
+  # AUTO LOAD MODULES
+  modulesDir = ./modules;
+  activatedModules = [
+    "cmd-tools"
+    "cursor"
+    "desktop-apps"
+    "dunst"
+    "fish"
+    "fonts"
+    "git"
+    "hypr"
+    "ides"
+    "js"
+    "neovim"
+    "python"
+    "quickshell"
+    "waybar"
+  ];
+  moduleNames = builtins.filter (name: builtins.elem name activatedModules)
+    (builtins.attrNames (lib.filterAttrs (name: type: type == "directory")
+      (builtins.readDir modulesDir)));
+  moduleConfigs = builtins.filter (path: builtins.pathExists path)
+    (map (name: modulesDir + "/${name}/config.nix") moduleNames);
+  modulePackages = lib.flatten (map (name:
+    let packagesPath = modulesDir + "/${name}/packages.nix";
+    in if builtins.pathExists packagesPath then
+      import packagesPath { inherit pkgs quickshell; }
+    else
+      [ ]) moduleNames);
 
 in {
-  imports = [
-    ./modules/neovim/config.nix
-    ./modules/hypr/config.nix
-    ./modules/git/config.nix
-    ./modules/waybar/config.nix
-    ./modules/fish/config.nix
-    ./modules/cursor/config.nix
-    ./modules/dunst/config.nix
-    ./modules/quickshell/config.nix
-    #./modules/walker/config.nix
-    #walker.homeManagerModules.default
-
-  ];
+  imports = moduleConfigs ++ [ ];
 
   home.stateVersion = "25.05";
   home.username = "timm";
@@ -33,69 +41,36 @@ in {
 
   home.packages = with pkgs;
     [
-      nerd-fonts.fira-code
-      nerd-fonts.droid-sans-mono
-      nerd-fonts.noto
-      nerd-fonts.hack
-      nerd-fonts.ubuntu
-      (callPackage ./prisma-bin.nix { })
-      bat
       nixfmt-classic
       vesktop
-      spotify
-      _1password-gui
-      sunshine
-      typescript-language-server
-      typescript
-      prettier
-      nodejs_22
-      emmet-ls
-      teamviewer
-      #prisma-engines
+      claude-code
       openssl
       direnv
-      wasistlos
       pkg-config
       nix-ld
       btop
+      zsh
+      oh-my-zsh
       libnotify
-      bluetui
-      moonlight-qt
-      pavucontrol
-      bun
+      #notion-app # doesnt work
       spicetify-cli
-      firefox
-      kitty
-      nautilus
-      alacritty
       nwg-look
-      gnome-calculator
       psmisc
+      warp-terminal
       steam
       yazi
       lnav
       pywal
-
-      tldr
       docker_25
-      vlc
       insomnia
       rustup
       gcc
       rofi
-      ripgrep
-      eza
-      unzip
-      waybar
-      blueman
       bluez
       networkmanager
-      uv
-      pyright
       gnumake42
       tree
-    ] ++ neovimPkgs ++ gitPkgs ++ fishPkgs ++ cursorPkgs ++ quickshellPkgs
-    ++ hyprPkgs ++ idesPkgs ++ pythonPkgs;
+    ] ++ modulePackages;
 
   stylix = {
     enable = true; # You commented this out, enable it for Stylix to work
@@ -110,6 +85,35 @@ in {
       font_family = "Fira Code Retina";
       font_size = 9.0;
       confirm_os_window_close = 0;
+    };
+  };
+
+  programs.zsh = {
+    enable = true;
+    plugins = [
+      {
+        name = "zsh-autosuggestions";
+        src = pkgs.fetchFromGitHub {
+          owner = "zsh-users";
+          repo = "zsh-autosuggestions";
+          rev = "v0.7.0";
+          sha256 = "sha256-KLUYpUu4DHRumQZ3w59m9aTW6TBKMCXl2UcKi4uMd7w=";
+        };
+      }
+      {
+        name = "zsh-syntax-highlighting";
+        src = pkgs.fetchFromGitHub {
+          owner = "zsh-users";
+          repo = "zsh-syntax-highlighting";
+          rev = "0.7.1";
+          sha256 = "sha256-gOG0NLlaJfotJfs+SUhGgLTNOnGLjoqnUp54V9aFJg8=";
+        };
+      }
+    ];
+    oh-my-zsh = {
+      enable = true;
+      theme = "agnoster";
+      plugins = [ "git" ];
     };
   };
 

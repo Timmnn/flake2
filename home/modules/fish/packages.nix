@@ -1,2 +1,2 @@
-{ pkgs, ... }: [ pkgs.fishPlugins.tide ]
+{ pkgs, ... }: with pkgs; [ fishPlugins.tide ]
 

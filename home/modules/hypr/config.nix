@@ -1,5 +1,3 @@
-
-
 { pkgs, lib, config, ... }: {
   home.file."${config.home.homeDirectory}/.config/hypr".source =
     config.lib.file.mkOutOfStoreSymlink

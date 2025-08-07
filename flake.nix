@@ -16,7 +16,7 @@
     };
     quickshell = {
       # add ?ref=<tag> to track a tag
-      url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
+      url = "git+https://git.outfoxxed.me/outfoxxed/quickshell?ref=v0.2.0";
 
       # THIS IS IMPORTANT
       # Mismatched system dependencies will lead to crashes and other issues.

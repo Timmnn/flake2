@@ -36,6 +36,8 @@
   };
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
+  nixpkgs.config.allowUnsupportedSystem = true;
+
   programs.steam.enable = true;
   services.xserver.videoDrivers = [ "amdgpu" ];
 
@@ -52,16 +54,20 @@
   security.rtkit.enable = true;
 
   virtualisation.docker.enable = true;
+  virtualisation.virtualbox.host.enable = true;
+
+  users.extraGroups.vboxusers.members = [ "timm" ];
 
   users.users.timm = {
     isNormalUser = true;
     description = "timm";
     extraGroups = [ "networkmanager" "wheel" "video" "audio" "docker" ];
-    packages = with pkgs; [ fish ];
-    shell = pkgs.fish; # optional
+    packages = with pkgs; [ fish zsh ];
+    shell = pkgs.zsh; # optional
   };
 
   programs.fish.enable = true;
+  programs.zsh.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;

@@ -7,7 +7,6 @@ with pkgs; [
   hyprpaper
   hyprlock
   xdg-desktop-portal-hyprland
-  dunst
   waypaper
   wl-clipboard
 ]

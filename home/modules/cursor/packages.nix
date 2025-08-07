@@ -1,1 +1,1 @@
-{ pkgs, ... }: [ pkgs.bibata-cursors ]
+{ pkgs, ... }: with pkgs; [ bibata-cursors ]
