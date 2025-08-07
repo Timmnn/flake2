@@ -4,11 +4,18 @@ import QtQuick
 import QtQuick.Controls
 
 ShellRoot {
-    AppLauncher {
-        id: launcher
+    LauncherManager {
+        id: launcherManager
     }
     
+    // Keybind handlers - you can bind these to your window manager
+    // Example keybinds (configure in your window manager):
+    // Super+Space: toggleMain()
+    // Super+A: toggleApps() 
+    // Super+S: toggleScreenshot()
+    
     Component.onCompleted: {
-        launcher.show()
+        // Show main launcher on startup
+        launcherManager.showMain()
     }
 }

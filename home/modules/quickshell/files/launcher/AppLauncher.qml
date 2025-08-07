@@ -4,7 +4,9 @@ import QtQuick
 import QtQuick.Controls
 
 Item {
-    id: launcher
+    id: appLauncher
+    
+    signal goBackRequested()
     
     property var applications: []
     property var filteredApps: []
@@ -246,26 +248,26 @@ Item {
                             visible: !searchInput.focus && searchInput.text === ""
                         }
                         
-                        onTextChanged: launcher.filterApps(text)
+                        onTextChanged: appLauncher.filterApps(text)
                         
                         Keys.onPressed: event => {
                             if (event.key === Qt.Key_Escape) {
-                                launcher.hide();
+                                appLauncher.goBackRequested();
                                 event.accepted = true;
                             } else if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
-                                if (appList.currentIndex >= 0 && launcher.filteredApps.length > 0) {
-                                    launcher.launchApp(launcher.filteredApps[appList.currentIndex].exec);
+                                if (appList.currentIndex >= 0 && appLauncher.filteredApps.length > 0) {
+                                    appLauncher.launchApp(appLauncher.filteredApps[appList.currentIndex].exec);
                                 }
                                 event.accepted = true;
                             } else if (event.key === Qt.Key_Down) {
-                                if (launcher.filteredApps.length > 0) {
-                                    appList.currentIndex = (appList.currentIndex + 1) % launcher.filteredApps.length;
+                                if (appLauncher.filteredApps.length > 0) {
+                                    appList.currentIndex = (appList.currentIndex + 1) % appLauncher.filteredApps.length;
                                 }
                                 event.accepted = true;
                             } else if (event.key === Qt.Key_Up) {
-                                if (launcher.filteredApps.length > 0) {
+                                if (appLauncher.filteredApps.length > 0) {
                                     appList.currentIndex = appList.currentIndex <= 0 ? 
-                                        launcher.filteredApps.length - 1 : appList.currentIndex - 1;
+                                        appLauncher.filteredApps.length - 1 : appList.currentIndex - 1;
                                 }
                                 event.accepted = true;
                             }
@@ -277,7 +279,7 @@ Item {
                     id: appList
                     width: parent.width
                     height: parent.height - 55
-                    model: launcher.filteredApps
+                    model: appLauncher.filteredApps
                     currentIndex: -1
                     clip: true
                     
@@ -292,7 +294,7 @@ Item {
                             hoverEnabled: true
                             
                             onEntered: appList.currentIndex = index
-                            onClicked: launcher.launchApp(modelData.exec)
+                            onClicked: appLauncher.launchApp(modelData.exec)
                         }
                         
                         Row {
