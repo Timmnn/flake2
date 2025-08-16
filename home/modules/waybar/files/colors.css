@@ -1,0 +1,33 @@
+/* Stylix colors dynamically generated from palette.json */
+@define-color base00 #0b1c2c;
+@define-color base01 #223b54;
+@define-color base02 #405c79;
+@define-color base03 #627e99;
+@define-color base04 #aabcce;
+@define-color base05 #cbd6e2;
+@define-color base06 #e5ebf1;
+@define-color base07 #f7f9fb;
+@define-color base08 #bf8b56;
+@define-color base09 #bfbf56;
+@define-color base0A #8bbf56;
+@define-color base0B #56bf8b;
+@define-color base0C #568bbf;
+@define-color base0D #8b56bf;
+@define-color base0E #bf568b;
+@define-color base0F #bf5656;
+
+/* Common app color mappings */
+@define-color background @base00;
+@define-color foreground @base05;
+@define-color primary @base0D;
+@define-color secondary @base0C;
+@define-color accent @base0A;
+@define-color urgent @base08;
+@define-color warning @base09;
+@define-color success @base0B;
+
+/* Legacy waybar color mappings */
+@define-color color7 @base05;
+@define-color color9 @base0D;
+@define-color color1 @base01;
+@define-color color2 @base02;

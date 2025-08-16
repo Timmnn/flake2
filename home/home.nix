@@ -21,6 +21,7 @@ let
     "python"
     "quickshell"
     "rofi"
+    "stylix-export"
     "walker"
     "waybar"
   ];

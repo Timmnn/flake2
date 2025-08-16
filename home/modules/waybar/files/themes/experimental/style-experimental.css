@@ -1,4 +1,4 @@
-@import url('../../.cache/wal/colors-waybar.css');
+@import url('../../colors.css');
 * {
     font-size:15px;
     font-family: "CodeNewRoman Nerd Font Propo";
@@ -63,7 +63,7 @@ tooltip {
     padding: 0px 2px;
     color:rgba(0,0,0,0);
     text-shadow:none;
-    background: @color2;
+    background: alpha(@base02,.5);
     border-radius: 50%;
     transition: all .3s;
     min-width: 15px;
@@ -71,17 +71,17 @@ tooltip {
 #workspaces button:hover {
     color:rgba(0,0,0,0);
     border: none;
-    background: @color1;
+    background: @base01;
 }
 #workspaces button.active {
     border: none;
     padding: 0px 2px;
     border-radius:10px;
-    background: @color1;
+    background: @base01;
     min-width: 30px;
 }
 #workspaces button.active:hover{
-    background: @color2;
+    background: @base02;
 }
 #workspaces button.empty {
     color: transparent;
@@ -98,10 +98,10 @@ tooltip {
     color: rgba(0,0,0,0);
     border: none;
     text-shadow: none;
-    background: @color1;
+    background: @base01;
 }
 #workspaces button.empty.active:hover{
-    background: @color2;
+    background: @base02;
 }
 #bluetooth{
     padding: 0px 5px;
