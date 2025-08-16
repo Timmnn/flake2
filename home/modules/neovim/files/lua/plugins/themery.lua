@@ -1,6 +1,28 @@
 return {
   'zaldih/themery.nvim',
   config = function()
+    local function read_file(path)
+      local f = io.open(path, 'r')
+      if not f then
+        return nil
+      end
+      local content = f:read '*a'
+      f:close()
+      return content
+    end
+
+    local function normalize_colors(tbl)
+      local fixed = {}
+      for k, v in pairs(tbl) do
+        if type(v) == 'string' and not vim.startswith(v, '#') then
+          fixed[k] = '#' .. v
+        else
+          fixed[k] = v
+        end
+      end
+      return fixed
+    end
+
     require('themery').setup {
       themes = {
         {
@@ -91,8 +113,12 @@ return {
           name = 'moonfly',
           colorscheme = 'moonfly',
         },
-      },
+        {
+          name = 'base16-stylix',
+          colorscheme = 'base16-stylix',
+        },
+      }, -- close themes table
       livePreview = true,
-    }
+    } -- close setup
   end,
 }

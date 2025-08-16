@@ -1,7 +1,2 @@
-{ pkgs, ... }:
-with pkgs;
-[
-
-  waybar
-]
+{ pkgs, ... }: with pkgs; [ waybar ]
 

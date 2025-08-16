@@ -64,6 +64,9 @@ vim.opt.scrolloff = 10
 vim.opt.confirm = true
 
 -- [[ Terminal Shell Configuration ]]
+-- Preserve TERM environment variable for image preview in nested terminals
+vim.env.TERM = os.getenv('TERM') or 'xterm-kitty'
+
 -- Set shell based on operating system
 if vim.fn.has 'win32' == 1 or vim.fn.has 'win64' == 1 then
   -- Windows: Use PowerShell

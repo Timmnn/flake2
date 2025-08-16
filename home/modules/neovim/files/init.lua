@@ -1,4 +1,5 @@
 require 'options'
+require 'colors'
 
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
@@ -45,3 +46,5 @@ vim.api.nvim_create_autocmd({ 'BufReadPost', 'BufNewFile' }, {
 vim.keymap.set('n', '<leader>st', function()
   vim.lsp.buf.hover()
 end, { buffer = bufnr, desc = 'Show type of variable' })
+
+--vim.cmd 'ColorschemeBase16Stylix'

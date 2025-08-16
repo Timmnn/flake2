@@ -14,15 +14,8 @@
                 "default": "",
                 "empty": ""
             },
-			"all-outputs": false,
-			"active-only": true,
-			"on-click": "activate",
-			"on-scroll-up": "hyprctl dispatch workspace -1",
-			"on-scroll-down": "hyprctl dispatch workspace +1",
             "persistent-workspaces": {
-				"HDMI-A-1":[1,2,3,4,5],
-				"DP-3":[6,7,8,9,10],
-				"DP-2":[11,12,13,14,15],
+                "*": [ 1,2,3,4,5 ]
             }
         },
         "custom/notification": {
@@ -85,6 +78,15 @@
             "󰂂",
             "󰁹"
             ],
+        },
+        "custom/pacman": {
+            "format": "󰅢 {}",
+            "interval": 30,   
+            "exec": "checkupdates | wc -l",
+            "exec-if": "exit 0",
+            "on-click": "kitty sh -c 'yay -Syu; echo Done - Press enter to exit; read'; pkill -SIGRTMIN+8 waybar",
+            "signal": 8,
+            "tooltip": false,
         },
         "custom/expand": {
             "format": "",

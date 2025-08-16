@@ -51,6 +51,16 @@
   # Touchpad and input
   services.libinput.enable = true;
 
+  services.restic.backups = {
+    onedrive = {
+      passwordFile = "/etc/nixos/restic-password.txt";
+      rcloneConfigFile = "/home/timm/.config/rclone/rclone.conf";
+      repository = "rclone:onedrive:/Backups/restic";
+      paths = [ "/home/timm/Dev" ];
+      user = "timm";
+    };
+  };
+
   security.rtkit.enable = true;
 
   virtualisation.docker.enable = true;
@@ -63,7 +73,7 @@
     description = "timm";
     extraGroups = [ "networkmanager" "wheel" "video" "audio" "docker" ];
     packages = with pkgs; [ fish zsh ];
-    shell = pkgs.zsh; # optional
+    shell = pkgs.fish; # optional
   };
 
   programs.fish.enable = true;

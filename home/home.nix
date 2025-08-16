@@ -11,13 +11,17 @@ let
     "dunst"
     "fish"
     "fonts"
+    "gaming"
     "git"
     "hypr"
     "ides"
+    "inventree"
     "js"
     "neovim"
     "python"
     "quickshell"
+    "rofi"
+    "walker"
     "waybar"
   ];
   moduleNames = builtins.filter (name: builtins.elem name activatedModules)
@@ -28,7 +32,7 @@ let
   modulePackages = lib.flatten (map (name:
     let packagesPath = modulesDir + "/${name}/packages.nix";
     in if builtins.pathExists packagesPath then
-      import packagesPath { inherit pkgs quickshell; }
+      import packagesPath { inherit pkgs quickshell walker; }
     else
       [ ]) moduleNames);
 
@@ -42,50 +46,66 @@ in {
   home.packages = with pkgs;
     [
       nixfmt-classic
-      vesktop
       claude-code
       openssl
       direnv
       pkg-config
       nix-ld
-      btop
+      freecad-wayland
       zsh
       oh-my-zsh
+      restic
+      rclone
       libnotify
+      imagemagick
+      luajitPackages.magick
       #notion-app # doesnt work
       spicetify-cli
       nwg-look
+      lua5_1
+      luarocks
       psmisc
       warp-terminal
-      steam
-      yazi
-      lnav
+      zulu8
+      appimage-run
+      pgadmin4
+      dbeaver-bin
+      tableplus
       pywal
+      kitty
+      libsForQt5.filelight
       docker_25
       insomnia
       rustup
-      gcc
-      rofi
       bluez
       networkmanager
       gnumake42
-      tree
     ] ++ modulePackages;
 
   stylix = {
-    enable = true; # You commented this out, enable it for Stylix to work
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/deep-oceanic-next.yaml";
+    enable = true;
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/harmonic16-dark.yaml";
     polarity = "dark";
-    #pywal.enable = true;
+    targets = {
+      neovim = {
+        enable = true;
+        plugin = "base16-nvim";
+      };
+    };
   };
 
-  programs.kitty = {
-    enable = true;
-    settings = {
-      font_family = "Fira Code Retina";
-      font_size = 9.0;
-      confirm_os_window_close = 0;
-    };
+  home.file = {
+    ".cache/stylix/colors.json".text =
+      builtins.toJSON config.lib.stylix.colors.withHashtag;
+  };
+
+  home.file = {
+    ".config/kitty/kitty.conf".text = ''
+      font_family  Fire Code Retina
+      font_size 9
+      background_opacity 0.9
+      confirm_os_window_close 0
+    '';
   };
 
   programs.zsh = {
