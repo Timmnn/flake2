@@ -8,17 +8,7 @@
 
 
         "hyprland/workspaces": {
-            "format": "{icon}",
-            "format-icons": {
-                "active": "",
-                "default": "",
-                "empty": ""
-            },
-            "persistent-workspaces": {
-                "HDMI-A-1": [ 1,2,3,4,5 ],
-                "DP-3": [ 6,7,8,9,10 ],
-                "DP-2": [ 11,12,13,14,15 ]
-            }
+            "format": "{name}"
         },
         "clock": {
             "format": "{:%A, %d.%m.%Y %H:%M:%S}",
@@ -44,4 +34,3 @@
             }
         }
 } 
-

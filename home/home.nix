@@ -49,11 +49,14 @@ in {
       nixfmt-classic
       claude-code
       openssl
+      caligula
       direnv
       pkg-config
       nix-ld
       freecad-wayland
       zsh
+      rpi-imager
+      libsForQt5.qtstyleplugin-kvantum
       oh-my-zsh
       restic
       rclone
@@ -64,6 +67,7 @@ in {
       spicetify-cli
       nwg-look
       lua5_1
+      termius
       luarocks
       psmisc
       warp-terminal
@@ -74,6 +78,7 @@ in {
       tableplus
       pywal
       kitty
+      jq
       libsForQt5.filelight
       docker_25
       insomnia
@@ -137,6 +142,5 @@ in {
       plugins = [ "git" ];
     };
   };
-
 }
 
