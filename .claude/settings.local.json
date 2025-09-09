@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(quickshell:*)",
+      "WebFetch(domain:github.com)",
+      "Bash(pkill:*)",
+      "Bash(rg:*)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "mcp__ide__getDiagnostics",
+      "Bash(grep:*)",
+      "Bash(chmod:*)",
+      "WebFetch(domain:quickshell.org)",
+      "Bash(timeout:*)",
+      "Bash(find:*)",
+      "Bash(ls:*)",
+      "Bash(mkdir:*)",
+      "Bash(test:*)",
+      "Bash(/home/timm/flake/home/modules/stylix-export/files/export-colors.sh:*)",
+      "WebFetch(domain:www.reddit.com)"
+    ],
+    "deny": []
+  }
+}

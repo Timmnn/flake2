@@ -1,13 +1,16 @@
 { config, pkgs, lib, ... }:
 
 {
-  imports = [ ./hardware-configuration.nix ];
+  imports = [ ./hardware-configuration.nix ./flatpak.nix ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
   nix.settings = { experimental-features = [ "nix-command" "flakes" ]; };
+
+  # Network
+  boot.extraModulePackages = [ pkgs.linuxPackages.r8168 ];
 
   networking.hostName = "nixos";
   networking.networkmanager.enable = true;
@@ -78,6 +81,9 @@
 
   programs.fish.enable = true;
   programs.zsh.enable = true;
+
+  # Enable Flatpak
+  services.flatpak.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;

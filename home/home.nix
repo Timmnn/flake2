@@ -49,6 +49,7 @@ in {
       nixfmt-classic
       claude-code
       openssl
+      tailscale
       caligula
       direnv
       pkg-config
@@ -56,6 +57,8 @@ in {
       freecad-wayland
       zsh
       rpi-imager
+      progress
+      dig
       libsForQt5.qtstyleplugin-kvantum
       oh-my-zsh
       restic
@@ -67,14 +70,13 @@ in {
       spicetify-cli
       nwg-look
       lua5_1
+      jdk
       termius
       luarocks
       psmisc
       warp-terminal
-      zulu8
       appimage-run
       pgadmin4
-      dbeaver-bin
       tableplus
       pywal
       kitty
@@ -105,12 +107,27 @@ in {
       builtins.toJSON config.lib.stylix.colors.withHashtag;
   };
 
+  home.sessionVariables = { JAVA_HOME = "${pkgs.jdk}"; };
+
   home.file = {
     ".config/kitty/kitty.conf".text = ''
       font_family  Fire Code Retina
       font_size 9
       background_opacity 0.9
       confirm_os_window_close 0
+    '';
+
+    ".local/share/applications/dbeaver.desktop".text = ''
+      [Desktop Entry]
+      Type=Application
+      Name=DBeaver
+      Comment=Universal Database Tool
+      Exec=flatpak run io.dbeaver.DBeaverCommunity
+      Icon=dbeaver
+      Categories=Development;Database;
+      StartupNotify=true
+      NoDisplay=false
+      StartupWMClass=DBeaver
     '';
   };
 

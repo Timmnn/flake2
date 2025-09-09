@@ -23,11 +23,14 @@ return {
       local util = require 'lspconfig.util'
       -- Shared on_attach function for all LSPs
       local on_attach = function(client, bufnr)
-        -- Keymap for showing type of variable under cursor
-
+        local navic = require 'nvim-navic'
         vim.keymap.set('n', 'gd', function()
           vim.lsp.buf.definition()
         end, { buffer = bufnr, desc = 'Show type of variable' })
+
+        if client.server_capabilities.documentSymbolProvider then
+          navic.attach(client, bufnr)
+        end
       end
 
       -- Setup for Lua

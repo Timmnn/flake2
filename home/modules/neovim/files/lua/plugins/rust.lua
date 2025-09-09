@@ -2,27 +2,30 @@ return {
   'mrcjkb/rustaceanvim',
   version = '^6',
   init = function()
-    -- Configure rustaceanvim here
+    local navic = require 'nvim-navic' -- make sure navic is installed
+
     vim.g.rustaceanvim = {
       tools = {
         autoSetHints = true,
         inlay_hints = {
           show_parameter_hints = true,
-          parameter_hints_prefix = 'in: ', -- "<- "
-          other_hints_prefix = 'out: ', -- "=> "
+          parameter_hints_prefix = 'in: ',
+          other_hints_prefix = 'out: ',
         },
       },
       server = {
         on_attach = function(client, bufnr)
-          local bufopts = {
-            noremap = true,
-            silent = true,
-            buffer = bufnr,
-          }
-          vim.keymap.set('n', '<leader>st', '<Cmd>RustLsp hover actions<CR>', bufopts)
+          local bufopts = { noremap = true, silent = true, buffer = bufnr }
 
+          -- your existing keymaps
+          vim.keymap.set('n', '<leader>st', '<Cmd>RustLsp hover actions<CR>', bufopts)
           vim.keymap.set('n', '<C-w>d', '<Cmd>lua vim.diagnostic.open_float()<CR>', bufopts)
           vim.keymap.set('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', bufopts)
+
+          -- Attach navic if supported
+          if client.server_capabilities.documentSymbolProvider then
+            navic.attach(client, bufnr)
+          end
         end,
       },
     }
