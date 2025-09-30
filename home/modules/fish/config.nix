@@ -46,6 +46,9 @@
         qs -c $argv[1]
       end
 
+
+      zoxide init fish | source
+
     '';
   };
 

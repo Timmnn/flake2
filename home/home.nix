@@ -51,12 +51,16 @@ in {
       openssl
       tailscale
       caligula
+      vscode-langservers-extracted
       direnv
       pkg-config
       nix-ld
+      deno
       freecad-wayland
       zsh
+      zoxide
       rpi-imager
+      #unityhub
       progress
       dig
       libsForQt5.qtstyleplugin-kvantum

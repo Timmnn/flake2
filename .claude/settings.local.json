@@ -16,7 +16,11 @@
       "Bash(mkdir:*)",
       "Bash(test:*)",
       "Bash(/home/timm/flake/home/modules/stylix-export/files/export-colors.sh:*)",
-      "WebFetch(domain:www.reddit.com)"
+      "WebFetch(domain:www.reddit.com)",
+      "Bash(journalctl:*)",
+      "Bash(killall:*)",
+      "Bash(vulkaninfo:*)",
+      "Bash(glxinfo:*)"
     ],
     "deny": []
   }

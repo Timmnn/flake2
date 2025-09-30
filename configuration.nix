@@ -30,14 +30,21 @@
     LC_TIME = "de_DE.UTF-8";
   };
 
+  # Enable OpenGL - deprecated, use hardware.graphics instead
+
   nixpkgs.config.permittedInsecurePackages = [ "openssl-1.1.1w" ];
 
   # Enable Wayland and required services
   programs.hyprland.enable = true;
   environment.sessionVariables = {
     WLR_NO_HARDWARE_CURSORS = "1"; # optional workaround for some GPUs
+    NIXOS_OZONE_WL = "1";
+    # Force Vulkan for wgpu applications
+    WGPU_BACKEND = "vulkan";
+    # Force RADV driver
+    AMD_VULKAN_ICD = "RADV";
+    VK_ICD_FILENAMES = "/run/opengl-driver/share/vulkan/icd.d/radeon_icd.x86_64.json";
   };
-  environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
   nixpkgs.config.allowUnsupportedSystem = true;
 
@@ -100,7 +107,22 @@
     to = 10000;
   }];
 
-  hardware.opengl.enable = true;
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+    extraPackages = with pkgs; [
+      amdvlk
+      mesa.drivers
+      vulkan-loader
+      vulkan-validation-layers
+      vulkan-extension-layer
+      mesa
+    ];
+    extraPackages32 = with pkgs; [
+      driversi686Linux.amdvlk
+      driversi686Linux.mesa
+    ];
+  };
 
   system.stateVersion = "25.05";
 
