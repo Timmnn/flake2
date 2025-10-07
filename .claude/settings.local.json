@@ -20,7 +20,13 @@
       "Bash(journalctl:*)",
       "Bash(killall:*)",
       "Bash(vulkaninfo:*)",
-      "Bash(glxinfo:*)"
+      "Bash(glxinfo:*)",
+      "WebFetch(domain:wiki.hypr.land)",
+      "Bash(nvidia-smi:*)",
+      "Bash(cat:*)",
+      "Bash(dmesg:*)",
+      "Bash(sudo dmesg:*)",
+      "Bash(hyprctl:*)"
     ],
     "deny": []
   }

@@ -9,9 +9,10 @@ let
     "cursor"
     "desktop-apps"
     "dunst"
+    "wl-kbptr"
     "fish"
     "fonts"
-    "gaming"
+    #"gaming"
     "git"
     "hypr"
     "ides"
@@ -22,7 +23,7 @@ let
     "quickshell"
     "rofi"
     "stylix-export"
-    "walker"
+    #"walker"
     "waybar"
   ];
   moduleNames = builtins.filter (name: builtins.elem name activatedModules)
@@ -47,13 +48,17 @@ in {
   home.packages = with pkgs;
     [
       nixfmt-classic
+      vagrant
       claude-code
       openssl
       tailscale
+      wl-kbptr
       caligula
       vscode-langservers-extracted
       direnv
+      teams-for-linux
       pkg-config
+      thunderbird
       nix-ld
       deno
       freecad-wayland
@@ -78,6 +83,7 @@ in {
       termius
       luarocks
       psmisc
+      yarn
       warp-terminal
       appimage-run
       pgadmin4

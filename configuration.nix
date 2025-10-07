@@ -7,6 +7,13 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # NVIDIA kernel parameters
+  boot.kernelParams =
+    [ "nvidia_drm.modeset=1" "module_blacklist=amdgpu,nouveau" ];
+
+  # Blacklist KVM modules to allow VirtualBox to work
+  boot.blacklistedKernelModules = [ "kvm_intel" ];
+
   nix.settings = { experimental-features = [ "nix-command" "flakes" ]; };
 
   # Network
@@ -16,6 +23,9 @@
   networking.networkmanager.enable = true;
 
   time.timeZone = "Europe/Berlin";
+
+  # Enable NTP time synchronization
+  services.chrony.enable = true;
 
   i18n.defaultLocale = "en_US.UTF-8";
   i18n.extraLocaleSettings = {
@@ -34,22 +44,24 @@
 
   nixpkgs.config.permittedInsecurePackages = [ "openssl-1.1.1w" ];
 
+  services.tailscale.enable = true;
+
   # Enable Wayland and required services
   programs.hyprland.enable = true;
   environment.sessionVariables = {
     WLR_NO_HARDWARE_CURSORS = "1"; # optional workaround for some GPUs
     NIXOS_OZONE_WL = "1";
-    # Force Vulkan for wgpu applications
-    WGPU_BACKEND = "vulkan";
-    # Force RADV driver
-    AMD_VULKAN_ICD = "RADV";
-    VK_ICD_FILENAMES = "/run/opengl-driver/share/vulkan/icd.d/radeon_icd.x86_64.json";
+    # NVIDIA-specific variables
+    LIBVA_DRIVER_NAME = "nvidia";
+    XDG_SESSION_TYPE = "wayland";
+    GBM_BACKEND = "nvidia-drm";
+    __GLX_VENDOR_LIBRARY_NAME = "nvidia";
   };
 
   nixpkgs.config.allowUnsupportedSystem = true;
 
   programs.steam.enable = true;
-  services.xserver.videoDrivers = [ "amdgpu" ];
+  services.xserver.videoDrivers = [ "nvidia" ];
 
   # Optional but helpful
   programs.dconf.enable = true;
@@ -110,18 +122,31 @@
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
-    extraPackages = with pkgs; [
-      amdvlk
-      mesa.drivers
-      vulkan-loader
-      vulkan-validation-layers
-      vulkan-extension-layer
-      mesa
-    ];
-    extraPackages32 = with pkgs; [
-      driversi686Linux.amdvlk
-      driversi686Linux.mesa
-    ];
+  };
+
+  hardware.nvidia = {
+    modesetting.enable = true;
+    powerManagement.enable = false;
+    powerManagement.finegrained = false;
+    open = false; # Use proprietary drivers
+    nvidiaSettings = true;
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
+
+    # For laptops with hybrid graphics (Intel + NVIDIA)
+    prime = {
+      # Use sync for always-on NVIDIA, or offload for Intel primary + NVIDIA on-demand
+      sync.enable = true;
+      intelBusId = "PCI:0:2:0";
+      nvidiaBusId = "PCI:1:0:0";
+    };
+  };
+
+  services.printing.enable = true;
+
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    openFirewall = true;
   };
 
   system.stateVersion = "25.05";

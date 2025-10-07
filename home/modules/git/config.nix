@@ -3,7 +3,10 @@
     enable = true;
     userName = "Timm Nicolaizik";
     userEmail = "timmmmnn@gmail.com";
-    extraConfig.init.defaultBranch = "main";
+    extraConfig = {
+      init.defaultBranch = "main";
+      credential.helper = "store";
+    };
   };
 }
 
