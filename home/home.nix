@@ -49,6 +49,7 @@ in {
       nixfmt-classic
       claude-code
       openssl
+      vagrant
       tailscale
       caligula
       vscode-langservers-extracted

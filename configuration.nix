@@ -75,6 +75,9 @@
 
   virtualisation.docker.enable = true;
   virtualisation.virtualbox.host.enable = true;
+  
+  # Disable KVM to avoid conflict with VirtualBox
+  boot.blacklistedKernelModules = [ "kvm-amd" "kvm-intel" ];
 
   users.extraGroups.vboxusers.members = [ "timm" ];
 
