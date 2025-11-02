@@ -15,6 +15,8 @@
   networking.hostName = "nixos";
   networking.networkmanager.enable = true;
 
+  nixpkgs.config.allowBroken = true;
+
   time.timeZone = "Europe/Berlin";
 
   i18n.defaultLocale = "en_US.UTF-8";
@@ -30,6 +32,8 @@
     LC_TIME = "de_DE.UTF-8";
   };
 
+  services.tailscale.enable = true;
+
   # Enable OpenGL - deprecated, use hardware.graphics instead
 
   nixpkgs.config.permittedInsecurePackages = [ "openssl-1.1.1w" ];
@@ -43,7 +47,8 @@
     WGPU_BACKEND = "vulkan";
     # Force RADV driver
     AMD_VULKAN_ICD = "RADV";
-    VK_ICD_FILENAMES = "/run/opengl-driver/share/vulkan/icd.d/radeon_icd.x86_64.json";
+    VK_ICD_FILENAMES =
+      "/run/opengl-driver/share/vulkan/icd.d/radeon_icd.x86_64.json";
   };
 
   nixpkgs.config.allowUnsupportedSystem = true;
@@ -75,7 +80,7 @@
 
   virtualisation.docker.enable = true;
   virtualisation.virtualbox.host.enable = true;
-  
+
   # Disable KVM to avoid conflict with VirtualBox
   boot.blacklistedKernelModules = [ "kvm-amd" "kvm-intel" ];
 
@@ -104,6 +109,8 @@
     enable = true;
     powerOnBoot = true;
   };
+
+  networking.firewall.checkReversePath = false;
 
   networking.firewall.allowedTCPPortRanges = [{
     from = 8000;

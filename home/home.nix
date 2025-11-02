@@ -51,9 +51,14 @@ in {
       openssl
       vagrant
       tailscale
+      cura
+      lolcat
+      kicad
       caligula
       vscode-langservers-extracted
       direnv
+      openvpn
+      wireguard-tools
       pkg-config
       nix-ld
       deno
