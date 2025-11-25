@@ -5,6 +5,7 @@ let
   # AUTO LOAD MODULES
   modulesDir = ./modules;
   activatedModules = [
+    "android"
     "cmd-tools"
     "cursor"
     "desktop-apps"
@@ -48,12 +49,23 @@ in {
   home.packages = with pkgs;
     [
       nixfmt-classic
+      handbrake
       vagrant
       claude-code
+      openvpn
+      blender
+      postman
+      wireguard-tools
+      mattermost-desktop
       openssl
+      hyprshot
+      mongodb-compass
+      kicad
       tailscale
+      xsel
       wl-kbptr
       caligula
+      pm2
       vscode-langservers-extracted
       direnv
       teams-for-linux

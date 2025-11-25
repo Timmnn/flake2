@@ -47,4 +47,4 @@ vim.keymap.set('n', '<leader>st', function()
   vim.lsp.buf.hover()
 end, { buffer = bufnr, desc = 'Show type of variable' })
 
---vim.cmd 'ColorschemeBase16Stylix'
+vim.cmd 'ColorschemeBase16Stylix'

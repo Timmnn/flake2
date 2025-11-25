@@ -7,5 +7,7 @@ with pkgs; [
   nodejs_22
   typescript-language-server
   typescript
+  nodePackages.ts-node
+  nodePackages.eslint_d
 ]
 

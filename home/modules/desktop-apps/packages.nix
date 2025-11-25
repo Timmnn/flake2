@@ -10,8 +10,9 @@ with pkgs; [
   pavucontrol
   firefox
   kitty
-  nautilus
+  xfce.thunar
   alacritty
-  gnome-calculator
+  galculator
   blueman
+  xfce.xfce4-settings
 ]

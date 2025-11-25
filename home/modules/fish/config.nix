@@ -49,6 +49,9 @@
 
       zoxide init fish | source
 
+      # Android SDK environment variables
+      set -gx ANDROID_HOME "/nix/store/mdc82m6wyf1kfvqqmxpb89bkf47a3pbq-android-sdk-platforms-35/libexec/android-sdk"
+
     '';
   };
 

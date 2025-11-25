@@ -30,7 +30,7 @@ return {
       'nvim-treesitter/playground',
     },
     opts = {
-      ensure_installed = { 'bash', 'c', 'html', 'lua', 'vimdoc', 'fusion4' },
+      ensure_installed = { 'bash', 'c', 'html', 'lua', 'vimdoc', 'fusion4', 'javascript', 'typescript', 'tsx', 'jsx' },
       auto_install = true,
       highlight = { enable = true },
       indent = { enable = true },
